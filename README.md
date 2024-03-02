@@ -2,9 +2,10 @@ Creating a README for your MkDocs project is a great way to welcome new users an
 
 ---
 
-# Project Name
+# MCTW - Projeto web
 
-Welcome to the Project Name documentation project! This project uses [MkDocs](https://www.mkdocs.org/), a fast, simple, and downright gorgeous static site generator that's geared towards building project documentation. Documentation source files are written in Markdown, and configured with a single YAML configuration file.
+Welcome to our open source documentation project for the MCTW - Projeto web! This project uses [MkDocs](https://www.mkdocs.org/), a fast, simple, and downright gorgeous static site generator that's geared towards building project documentation. Documentation source files are written in Markdown, and configured with a single YAML configuration file. 
+Feel free to contribute to our documentation by submitting a pull request!
 
 ## Getting Started
 
@@ -47,7 +48,11 @@ We welcome contributions to the Project Name documentation! Here's how you can h
 
 ### Reporting Bugs or Suggesting Enhancements
 
-If you find a bug or have an idea for an improvement, please use the [Issues](https://github.com/your-organization/your-project/issues) section of our GitHub repository to submit your feedback.
+If you find a bug or have an idea for an improvement, please use the [Issues](https://github.com/PW-2024/AulasP2/issues) section of our GitHub repository to submit your feedback.
+
+### Topics wishlist
+
+If you have a topic you'd like to see covered in the documentation, please submit a request in the [Issues](https://github.com/PW-2024/AulasP2/issues) section of our GitHub repository.
 
 ### Submitting Changes
 

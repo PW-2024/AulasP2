@@ -4,6 +4,16 @@ repo_name: AulasP2
 docs_dir: docs
 theme:
   name: material
+  features:
+    - content.code.copy
   palette:
     primary: green
     accent: light green
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences

@@ -1,17 +1,9 @@
-# Welcome to MkDocs
+# MCTW - Projeto web
 
-For full documentation visit [mkdocs.org](https://www.mkdocs.org).
+## Welcome to MCTW - Projeto web!
 
-## Commands
+This is a collaborative documentation project where we aim to provide comprehensive documentation for the MCTW - Projeto web.
+All the contents of the classes will be available here, as well as the projects and exercises.
 
-* `mkdocs new [dir-name]` - Create a new project.
-* `mkdocs serve` - Start the live-reloading docs server.
-* `mkdocs build` - Build the documentation site.
-* `mkdocs -h` - Print help message and exit.
+Each student is free to contribute to the documentation by submitting a pull request! Idea is to have a single place where we can find all the information about the classes and share our knowledge.
 
-## Project layout
-
-    mkdocs.yml    # The configuration file.
-    docs/
-        index.md  # The documentation homepage.
-        ...       # Other markdown pages, images and other files.

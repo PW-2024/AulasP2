@@ -9,8 +9,12 @@ This process uses the **HTTP** (Hypertext Transfer Protocol) protocol, which is 
 
 ## Steps when accessing a website
 
-1. **DNS resolution**: Your browser needs to know the IP address of the server where the website is hosted. To do this, it sends a request to a DNS server, which returns the IP address of the server.
-2. **HTTP request**: Your browser sends an HTTP request to the server, asking for the website's content.
+### **DNS resolution**: 
+
+Your browser needs to know the IP address of the server where the website is hosted. To do this, it sends a request to a DNS server, which returns the IP address of the server.
+
+
+### **HTTP request**: Your browser sends an HTTP request to the server, asking for the website's content.
 
 Rules of communication between the client and the server are set by the HTTP protocol. The request is composed of a **method** (GET, POST, PUT, DELETE, etc.), a **path** (the URL), and a **version** of the protocol.
 
@@ -21,7 +25,7 @@ GET /index.html HTTP/1.1
 Host: www.example.com
 ```
 
-3. **Processing the request**: The server processes the request and sends back the requested information to your browser.
+### **Processing the request**: The server processes the request and sends back the requested information to your browser.
 
 Example of the response:
 
@@ -43,9 +47,11 @@ Content-Type: text/html
 ```
 
 
-4. **Rendering the website**: Your browser receives the information and renders the website for you to see.
+### **Rendering the website**: Your browser receives the information and renders the website for you to see.
 
 This is a simplified explanation of what happens when you access a website. There are many other steps involved, such as SSL/TLS negotiation, caching, and more.
+
+![Accessing a website](./img/diagram_web.png)
 
 
 ## Accessing an website with NodeJS example:

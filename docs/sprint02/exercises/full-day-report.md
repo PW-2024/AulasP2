@@ -8,7 +8,6 @@ In this exercise, you will create a simple Node.js application that fetches mete
 
 1. Create a new folder named `weather` and write a script that fetches meteorological data from the [OpenWeatherMap API](https://openweathermap.org/api) and store it a new file with the date as the name.
 
+## Advanced
 
-
-
-
+1. Extend the solution in order to publish to a discord channel.

@@ -1,6 +1,4 @@
-# Server side 
-
-## What happens when I access a website?
+# What happens when I access a website?
 
 Whenever you visit a website, your browser sends a request to the server where the website is hosted. The server then processes the request and sends back the requested information to your browser.
 This process uses the **HTTP** (Hypertext Transfer Protocol) protocol, which is a set of rules that allows the transfer of files, such as text, images, and videos, on the web.

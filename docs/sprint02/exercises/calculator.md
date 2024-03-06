@@ -1,4 +1,4 @@
-# Calculator Exercise
+# Calculator
 
 ## Introduction
 

@@ -3,18 +3,33 @@ repo_url: https://github.com/PW-2024/AulasP2
 site_url: https://pw-2024.github.io/AulasP2
 repo_name: AulasP2
 docs_dir: docs
+plugins:
+  - git-committers:
+      branch: main
+      repository: PW-2024/AulasP2
+      exclude:
+        - README.md
+      enabled: true
+  - git-revision-date-localized:
+      enable_creation_date: true
 theme:
+  font:
+    text: 'Roboto'
+    code: 'Roboto Mono'
   name: material
   favicon: logo.png
   logo: logo_big.png
   features:
     - content.code.copy
+    - content.action.edit
     - navigation.instant
     - navigation.tabs
     - navigation.path
   palette:
     primary: green
     accent: light green
+  icon:
+    repo: fontawesome/brands/github
 markdown_extensions:
   - pymdownx.highlight:
       anchor_linenums: true

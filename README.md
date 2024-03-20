@@ -40,7 +40,7 @@ To run the project locally and view the documentation in your browser:
 mkdocs serve
 ```
 
-This command starts a local server on `http://127.0.0.1:8000/`. Open your web browser to `http://127.0.0.1:8000/` to see the live documentation.
+This command starts a local server on `http://127.0.0.1:8000/`. Open your web browser to `http://127.0.0.1:8000/` to see the live documentation. Update example
 
 ## How to Contribute
 

@@ -1,4 +1,4 @@
-# Model View Controller (MWC)
+# Model View Controller (MVC)
 
 Structuring your code is important. It helps you to keep your code organized and maintainable. 
 
@@ -12,11 +12,11 @@ MVC is mostly about **separation of concerns**. It divides your code into three 
     - Each model is a representation of a table in the database.
     - Each model has a set of methods that allow you to interact with the data in the database. (save, fetch, delete, etc.)
 
-- **View** (UI): This is what the user sees. It is responsible for displaying the data to the user. It is the user interface of your application.
+- **View** (Route handler): This is what the user sees. It is responsible for displaying the data to the user. It is the user interface of your application.
     - What the user sees.
     - Decoupled from the model.
 
-- **Controller** (Routes): This is the middleman between the Model and the View. It is responsible for handling the user input and updating the Model and the View accordingly.
+- **Controller** (Routes logic): This is the middleman between the Model and the View. It is responsible for handling the user input and updating the Model and the View accordingly.
     - Connection poing between the model and the view.
 
 
@@ -43,7 +43,7 @@ Suppose you have a simple application that allows users to create, read, update,
 - **Controller**: The controller will handle the user input. It will have routes to create, read, update, and delete posts. It will update the model and the view accordingly.
 
 
-![MWC](./img/MWC.png)
+![MVC](./img/MVC.png)
 
 
 Here is how the MVC components will interact with each other:
@@ -65,46 +65,85 @@ This is a simple example of how MVC works. It helps you to keep your code organi
 
 Here is an example of how you can implement MVC in Node.js using express:
 
+
+### Model
+
 ```javascript
-// Model
-const Post = require('./models/post');
 
-// View
+// models/post.js
+const posts = [
+    {
+        id: 1,
+        title: 'Post 1',
+        content: 'Content of post 1'
+    },
+    {
+        id: 2,
+        title: 'Post 2',
+        content: 'Content of post 2'
+    }
+];
+
+function fetchAll() {
+    return posts;
+}
+
+function save(post) {
+    posts.push(post);
+}
+
+module.exports = {
+    fetchAll,
+    save
+};
+
+```
+### View
+
+```javascript
+// routes/posts.js
+
+const PostController = require('../controllers/posts');
+
+const router = express.Router();
+
+router.get('/posts', PostController.getPosts);
+
+router.post('/posts', PostController.createPost);
+
+module.exports = router;
+
+```
+
+### Controller
+
+```javascript
+
+// controllers/posts.js
+
 const express = require('express');
-const app = express();
 
-app.get('/posts', (req, res) => {
-    res.send('List of posts');
-});
+const Post = require('../models/post');
 
-app.post('/posts', (req, res) => {
-    res.send('Create a new post');
-});
-
-app.listen(3000, () => {
-    console.log('Server is running on port 3000');
-});
-
-// Controller
-const express = require('express');
-const app = express();
-
-app.use(express.json());
-
-app.get('/posts', (req, res) => {
+function getPosts(req, res) {
     const posts = Post.fetchAll();
     res.send(posts);
-});
+}
 
-app.post('/posts', (req, res) => {
+function createPost(req, res) {
     const post = new Post(req.body);
     post.save();
     res.send('Post created');
-});
+}
 
-app.listen(3000, () => {
-    console.log('Server is running on port 3000');
-});
+
+module.exports = {
+    getPosts,
+    createPost
+};
+
 ```
+In this example, we have separated the data, the user interface, and the business logic of the application. The model represents the data of the posts. The view displays the posts to the user. The controller handles the user input and updates the model and the view accordingly.
 
-In this example, we have a simple application that allows users to create, read, update, and delete posts. We have separated the code into three main components: Model, View, and Controller. The Model represents the data of the posts. The View displays the posts to the user. The Controller handles the user input and updates the Model and the View accordingly. This is a simple example of how you can implement MVC in Node.js using express.
+
+

@@ -62,6 +62,9 @@ await User.destroy({
     }
 });
 
+// syncing the model with the database
+await sequelize.sync();
+
 ```
 
 ## Core concepts in Sequelize
@@ -84,12 +87,11 @@ const User = sequelize.define('User', {
 });
 
 ```
-
-
-
 - **Associations**: Associations define the relationships between different models. For example, a user model might have an association with a post model, indicating that a user can have multiple posts.
 
 ```javascript
+
+
 // 1-to-many association
 User.hasMany(Post);
 Post.belongsTo(User);
@@ -103,13 +105,17 @@ User.belongsToMany(Project, { through: 'UserProject' });
 Project.belongsToMany(User, { through: 'UserProject' });
 
 // or with parameters
-
 const UserProject = sequelize.define('UserProject', {
     role: Sequelize.STRING
 });
 
 User.belongsToMany(Project, { through: UserProject });
 Project.belongsToMany(User, { through: UserProject });
+
+// then querying the projects of a user would look like this:
+const user = await User.findByPk(1);
+const projects = await user.getProjects();
+
 
 
 // 1-to-1 association
@@ -131,3 +137,4 @@ User.belongsToMany(User, { as: 'Friends', through: 'Friendship' });
 - [TypeORM documentation](https://typeorm.io/)
 - [Prisma documentation](https://www.prisma.io/)
 - [Node.js ORM comparison](https://amplication.com/blog/top-6-orms-for-modern-nodejs-app-development)
+

@@ -4,6 +4,7 @@ Object mappers are a common way to interact with databases in a more object-orie
 
 Depending on the database you are using, you may need to use a different type of object mapper. For example, if you are using a relational database like MySQL or PostgreSQL, you will need to use an Object-Relational Mapper (ORM). If you are using a document database like MongoDB, you will need to use an Object-Document Mapper (ODM). If you are using a graph database like Neo4j, you will need to use an Object-Graph Mapper (OGM).
 
+![ORM](./img/ORM.png)
 
 ## Advantages of using an object mapper
 

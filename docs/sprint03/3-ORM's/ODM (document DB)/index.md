@@ -1,9 +1,13 @@
 # Definition & Examples of ODM's
 
-Object-Document Mapping (ODM) is a technique used to convert data between incompatible systems in a way that is transparent to the developer. Instead of using relational databases, ODM is typically used with NoSQL databases, such as MongoDB. It helps in mapping document data to object-oriented programming languages, which simplifies the integration of database interactions into application code.
+An Object-Document Mapper (ODM) is a tool that allows you to interact with your MongoDB database using JavaScript objects. It maps your objects in the application to documents in the database.
+
+Usually, when you interact with a MongoDB database, you work directly with the documents in the database, which are stored in a format called BSON (a binary version of JSON). You use MongoDB commands when you want to create, read, update, or delete a document.
+
+An ODM, like Mongoose, provides a way to interact with the documents in the database using JavaScript objects. With Mongoose, you can define a schema (a blueprint) for your objects and then use it to create instances of those objects. These instances can be saved, retrieved, updated and deleted in the database using mongoose methods.
 
 Short:
-ODM abstracts the complexities of interacting with document databases, allowing developers to work with data as if they were working with plain objects in their programming language. This eliminates the need for writing database-specific queries.
+Is a tool that allows you to interact with your MongoDB database using JavaScript objects
 
 Some popular ODM's for Node.js with MongoDB are:
 
@@ -123,11 +127,24 @@ const User = mongoose.model('User', UserSchema);
 
 ```javascript
 
+// finding a user
+const users = await User.find().where('firstName').equals('John');
+
+// finding all users
 const users = await User.find();
 
-await User
-    .findOneAndUpdate({ lastName: 'Doe' }, { firstName: 'Jane' });
+// creating a document
+const user = new User({
+    firstName: 'John',
+    lastName: 'Doe'
+});
 
+user.save();
+
+// updating a document
+await User.findOneAndUpdate({ lastName: 'Doe' }, { firstName: 'Jane' });
+
+// deleting a document
 await User
     .findOneAndDelete({ lastName: 'Doe' });
 

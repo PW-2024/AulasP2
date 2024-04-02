@@ -1,4 +1,4 @@
-# ORM's, ODM's, OGM's ...
+# Definition & Advantages/Disadvantages of ORM's
 
 Object mappers are a common way to interact with databases in a more object-oriented way. They allow you to interact with the database using objects and methods, rather than writing raw SQL queries. This can make your code more readable and maintainable, as well as reducing the amount of boilerplate code you need to write.
 

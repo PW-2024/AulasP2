@@ -1,4 +1,4 @@
-# ORM (relational DB)
+# Definition & Examples of ORM's
 
 Object-Relational Mapping (ORM) is a programming technique that converts data between incompatible type systems using object-oriented programming languages. It creates a "virtual object database" that can be used within the programming language. ORM's are used to interact with relational databases, such as MySQL, PostgreSQL, and SQLite.
 

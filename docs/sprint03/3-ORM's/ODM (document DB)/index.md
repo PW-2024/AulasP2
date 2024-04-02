@@ -1,4 +1,4 @@
-# ODM (document DB)
+# Definition & Examples of ODM's
 
 Object-Document Mapping (ODM) is a technique used to convert data between incompatible systems in a way that is transparent to the developer. Instead of using relational databases, ODM is typically used with NoSQL databases, such as MongoDB. It helps in mapping document data to object-oriented programming languages, which simplifies the integration of database interactions into application code.
 

@@ -60,3 +60,51 @@ Here is how the MVC components will interact with each other:
 
 This is a simple example of how MVC works. It helps you to keep your code organized and maintainable. It separates the data, the user interface, and the business logic of your application. It makes it easier to scale and test your application. It is a popular pattern used in web development to structure your code.
 
+
+## Example in Node.js + express
+
+Here is an example of how you can implement MVC in Node.js using express:
+
+```javascript
+// Model
+const Post = require('./models/post');
+
+// View
+const express = require('express');
+const app = express();
+
+app.get('/posts', (req, res) => {
+    res.send('List of posts');
+});
+
+app.post('/posts', (req, res) => {
+    res.send('Create a new post');
+});
+
+app.listen(3000, () => {
+    console.log('Server is running on port 3000');
+});
+
+// Controller
+const express = require('express');
+const app = express();
+
+app.use(express.json());
+
+app.get('/posts', (req, res) => {
+    const posts = Post.fetchAll();
+    res.send(posts);
+});
+
+app.post('/posts', (req, res) => {
+    const post = new Post(req.body);
+    post.save();
+    res.send('Post created');
+});
+
+app.listen(3000, () => {
+    console.log('Server is running on port 3000');
+});
+```
+
+In this example, we have a simple application that allows users to create, read, update, and delete posts. We have separated the code into three main components: Model, View, and Controller. The Model represents the data of the posts. The View displays the posts to the user. The Controller handles the user input and updates the Model and the View accordingly. This is a simple example of how you can implement MVC in Node.js using express.

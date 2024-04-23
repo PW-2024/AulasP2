@@ -1,5 +1,10 @@
 # Pagination in REST API
 
+```http
+GET /products?offset=0&limit=10
+```
+
+
 ## Introduction
 
 In this document, we will discuss the importance of pagination in REST APIs and how it can be implemented to optimize the performance of your API.
@@ -25,7 +30,17 @@ There are two common types of pagination:
 
 - **Offset-based pagination**: This type of pagination uses an offset and limit to determine which subset of records to return. For example, to fetch records 11-20, you would use an offset of 10 and a limit of 10.
 
+```http	
+GET /products?page=1&limit=10
+```
+
 - **Cursor-based pagination**: This type of pagination uses a cursor to determine the subset of records to return. The cursor is a unique identifier that points to a specific record in the dataset. For example, to fetch records after a specific record, you would use the cursor of that record.
+
+
+
+```http
+GET /products?lastId=10&limit=10
+```
 
 When to use offset-based pagination:
 - When the dataset has a stable order.
@@ -43,6 +58,7 @@ In Express.js applications, you can implement pagination using query parameters.
 ### Offset-based pagination
 
 ```javascript
+
 app.get('/users', (req, res) => {
   const { page = 1, limit = 10 } = req.query;
   
@@ -61,6 +77,7 @@ app.get('/users', (req, res) => {
     limit,
   });
 });
+
 ```
 
 ### Cursor-based pagination

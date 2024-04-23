@@ -1,5 +1,16 @@
 # User Input & Validation in a REST API
 
+```http
+POST /users
+Content-Type: application/json
+
+{
+  "name": "John Doe",
+  "email": "
+  "password": "123456"
+}
+```
+
 ## Introduction
 
 In this document, we will discuss the importance of user input validation in REST APIs.
@@ -50,8 +61,9 @@ app.post('/users', (req, res) => {
   if (password.length < 6) {
     return res.status(400).json({ error: 'Password must have at least 6 characters' });
   }
-   
 
+  User.create({ name, email, password })
+  
 });
 
 ```

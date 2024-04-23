@@ -1,5 +1,9 @@
 # Filtering and Sorting in a REST API
 
+````http
+GET /products?category=electronics&minPrice=100&maxPrice=500&sortBy=price&orderBy=asc
+````
+
 In this document, we will discuss the importance of filtering and sorting in REST APIs and how they can be implemented to optimize the performance of your API.
 
 ## Why are filtering and sorting important?

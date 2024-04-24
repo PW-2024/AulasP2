@@ -1,8 +1,8 @@
-# Authorization in REST APIs
+# Authorization in RESTful APIs
 
 ## Introduction
 
-Authorization is a critical component in securing REST APIs, ensuring that users have the correct permissions to access or perform actions on resources. Role-Based Access Control (RBAC) is widely used for efficient permission management across diverse systems.
+Authorization is a critical component in securing RESTful APIs, ensuring that users have the correct permissions to access or perform actions on resources. Role-Based Access Control (RBAC) is widely used for efficient permission management across diverse systems.
 
 ## Role-Based Access Control (RBAC)
 

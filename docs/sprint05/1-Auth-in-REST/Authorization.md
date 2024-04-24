@@ -50,6 +50,9 @@ const authenticate = (req, res, next) => {
 // Role checking middleware to enforce access control
 const roleCheck = (role) => {
   return (req, res, next) => {
+
+    if(!req.user) return res.status(401).json({ message: 'Unauthorized' };
+
     if (req.user.role === role) {
       next();
     } else {
@@ -58,7 +61,7 @@ const roleCheck = (role) => {
   };
 };
 
-app.get('/users', authenticate, roleCheck('admin'), (req, res) => {
+app.get('/admin-protected-route', authMiddleware, roleCheck('admin'), (req, res) => {
   res.json(users);
 });
 
@@ -98,10 +101,7 @@ const guard = require('express-jwt-permissions')();
 
 const app = express();
 
-// Assume previous middleware setup is used here
-
-// Protected route using the library
-app.get('/users', guard.check(['admin']), (req, res) => {
+app.get('/approve-product', guard.check(['approve-product']), (req, res) => {
   res.json(users);
 });
 

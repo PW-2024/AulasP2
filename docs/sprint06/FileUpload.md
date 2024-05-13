@@ -4,9 +4,11 @@ When dealing with file uploads in a web application, it's important to understan
 
 There are a few ways of storing files in a web application, such as storing them in a database, storing them in a file system, or storing them in a cloud storage service like Amazon S3 or Google Cloud Storage.
 
+Storing files in a database is not recommended for large files or high volumes of files, as it can lead to performance issues and increased storage costs as the database grows.
+
 In this lesson, we will focus on storing files in a file system, as it is the most common approach for small to medium-sized applications.
 
-## Process of sending files to the API and storing them in disk storage
+## Process of sending files to the API and storing them in the file system
 
 ### Client-side process (example with React)
 
@@ -150,6 +152,152 @@ const imageUrl = `${storageBaseUrl}/uploads/${fileName}`;
 ```
 
 By using the `storageBaseUrl` variable, you can ensure that the image URLs are generated correctly in different environments.
+
+## Process of storing files in a cloud storage service provider
+
+Storing files in a cloud storage service provider like Amazon S3 or Google Cloud Storage offers several advantages over storing files in a file system on the server.
+
+Cloud storage services provide scalable and reliable storage solutions with high availability and durability. They also offer features like versioning, encryption, and access control to secure your data.
+
+
+## Storing files in Google cloud storage
+
+Step 1: Install the necessary dependencies
+
+To store files in Google Cloud Storage, you need to install the `@google-cloud/storage` package.
+
+```bash
+npm install @google-cloud/storage multer uuid
+```
+
+Step 2: Configure Google Cloud Storage
+
+After installing the necessary packages, you need to configure Google Cloud Storage in your Express application. You can create a new bucket in Google Cloud Storage and set up the necessary credentials to access the bucket.
+
+.env file
+```bash
+GOOGLE_CLOUD_PROJECT_ID=your-project-id
+GOOGLE_CLOUD_STORAGE_BUCKET=your-bucket-name
+GOOGLE_CLOUD_STORAGE_KEYFILE=credentials.json # this 
+```
+
+```javascript
+const express = require('express');
+
+const { Storage } = require('@google-cloud/storage');
+const multer = require('multer');
+
+const app = express();
+
+const storage = new Storage({
+  projectId: process.env.GOOGLE_CLOUD_PROJECT_ID,
+  keyFilename: process.env.GOOGLE_CLOUD_STORAGE_KEYFILE,
+});
+
+const bucket = storage.bucket(process.env.GOOGLE_CLOUD_STORAGE_BUCKET);
+
+const upload = multer({
+  // memory storage stores the file in the server's memory until it is uploaded to the cloud storage
+  storage: multer.memoryStorage(),
+  // alternatively you can store in the os temp folder
+  // dest: require('os').tmpdir(),
+});
+
+app.post('/upload', upload.single('file'), async (req, res) => {
+  const { file } = req;
+
+  if (!file) {
+    return res.status(400).send('No file uploaded.');
+  }
+  const {
+    originalname,
+    buffer
+  } = file;
+
+  const uniqueFileName = `${uuid()}${file.originalname}`;
+
+  // create a new file in the bucket
+  const fileUpload = bucket.file(uniqueFileName);
+
+  await bucket.upload(buffer, {
+    destination: uniqueFileName,
+    metadata: {
+      contentType: file.mimetype,
+    },
+  });
+
+  // make the file public so it can be accessed publicly via a URL
+  await fileUpload.makePublic();
+
+  // store the path in the user's profile
+  const { user } = req;
+
+  await user.update({ avatar: `/${bucket.name}/${uniqueFileName}` });
+
+  await user.save();
+
+  res.json({ message: 'File uploaded successfully' });
+});
+
+app.listen(3000, () => {
+  console.log('Server running on port 3000');
+});
+```
+
+## Good practices when storing files
+
+When storing files in the API, it is also mandatory to consider some good practices to ensure the security and performance of the application. Also we need to avoid users from storing malicious files or too large files that could compromise the server.
+
+Some good practices include:
+- Only authorized users should be able to upload files.
+- Quota limits should be set for file uploads to prevent abuse.
+- File types and sizes should be validated before storing them.
+- File sizes should be limited to prevent denial of service attacks.
+
+When using multer and express, you can set file size limits and filter file types using the `limits` and `fileFilter` options in the multer configuration.
+
+```javascript
+
+const upload = multer({
+  // any of the previously mentioned storage options
+  storage: multer.memoryStorage(),
+  limits: {+
+    fileSize: 5 * 1024 * 1024, // 5MB limit for example 
+  },
+  fileFilter: (req, file, cb) => {
+    const whitelist = [
+      'image/png',
+      'image/jpeg',
+      'image/jpg',
+      'image/webp'
+    ]
+
+    if (!whitelist.includes(file.mimetype)) {
+      return cb(new Error('Invalid file type'));
+    }
+  },
+});
+
+```
+
+Additionally, you can also setup a validation middleware to check if the user has quota limits for file uploads.
+
+```javascript
+
+const maxQuota = 100 * 1024 * 1024; // 100MB for example
+
+const validateQuota = (req, res, next) => {
+  const { user } = req;
+  const { file } = req;
+  const { usedQuota } = user;
+
+  if (usedQuota + file.size > maxQuota) {
+    return res.status(400).json({ message: 'Quota limit exceeded' });
+  }
+
+  next();
+};
+```
 
 ## Using a CDN to serve static files
 

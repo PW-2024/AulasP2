@@ -92,6 +92,7 @@ For the folder where the files will be stored, you can use the `path` module to 
 const express = require('express');
 const multer = require('multer');
 const uuid = require('uuidv4');
+const mime = require('mime-types');
 
 const app = express();
 
@@ -102,7 +103,14 @@ const storage = multer.diskStorage({
   },
   filename: function (req, file, cb) {
     const uniqueSuffix = uuid();
-    cb(null, file.fieldname + '-' + uniqueSuffix);
+    const {
+      originalname,
+      mimetype
+    } = file;
+    
+    // you can use the mime-types package to get the file extension
+    const extension = mime.extension(mimetype);
+    cb(null, `${uniqueSuffix}.${extension}`);
   },
 });
 
@@ -183,6 +191,7 @@ GOOGLE_CLOUD_STORAGE_KEYFILE=credentials.json # this
 
 ```javascript
 const express = require('express');
+const mime = require('mime-types');
 
 const { Storage } = require('@google-cloud/storage');
 const multer = require('multer');
@@ -211,10 +220,13 @@ app.post('/upload', upload.single('file'), async (req, res) => {
   }
   const {
     originalname,
+    mimetype,
     buffer
   } = file;
 
-  const uniqueFileName = `${uuid()}${file.originalname}`;
+
+  const extension = mime.extension(file.mimetype);
+  cpmst uniqueFileName = `${uuid()}.${extension}`;
 
   // create a new file in the bucket
   const fileUpload = bucket.file(uniqueFileName);
